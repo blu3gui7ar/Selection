@@ -23,8 +23,7 @@ use libc::pid_t;
 
 
 pub fn get_text() -> String {
-    match get_selected_text_by_accessibility() {
-        // match get_text_by_clipboard() {
+    match get_text_ways() {
         Ok(text) => {
             if !text.is_empty() {
                 return text;
@@ -36,6 +35,15 @@ pub fn get_text() -> String {
     }
     // Return Empty String
     String::new()
+}
+
+fn get_text_ways() -> Result<String, Box<dyn Error>> {
+    let text = get_selected_text_by_accessibility()?;
+    if text.is_empty() {
+        return get_text_by_clipboard();
+    } else {
+        Ok(text)
+    }
 }
 
 fn def_attr<'a>(ident: &'a str) -> CFString {
