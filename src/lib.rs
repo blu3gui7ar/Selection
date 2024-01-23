@@ -35,8 +35,9 @@ pub fn get_text() -> String {
 #[cfg(test)]
 mod tests {
     use crate::get_text;
+    use test_log::test;
     #[test]
     fn it_works() {
-        println!("{}", get_text());
+        println!("get_text: {}", get_text());
     }
 }
